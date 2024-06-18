@@ -12,7 +12,7 @@ export declare type Order = 'C' | 'F';
 /**
  * Currently supported dtypes are listed here only.
  */
-export declare type DtypeString = '|u1' | '|i1' | '|b' | '|B' | '<u1' | '<i1' | '<b' | '<B' | '<u2' | '<i2' | '<u4' | '<i4' | '<f2' | '<f4' | '<f8' | '>u1' | '>i1' | '>b' | '>B' | '>u2' | '>i2' | '>u4' | '>i4' | '>f4' | '>f2' | '>f8';
+export declare type DtypeString = '|u1' | '|i1' | '|b' | '|b1' | '|B' | '<u1' | '<i1' | '<b' | '<B' | '<u2' | '<i2' | '<u4' | '<i4' | '<f2' | '<f4' | '<f8' | '>u1' | '>i1' | '>b' | '>B' | '>u2' | '>i2' | '>u4' | '>i4' | '>f4' | '>f2' | '>f8';
 /**
  * User interface for chunking.
  * - `null` or `true`: Automatic chunking (zarr will try to guess an appropriate) - not supported yet.
@@ -27,6 +27,9 @@ export interface CompressorConfig {
 }
 export interface Filter {
     id: string;
+}
+export interface FilterDclimateEtl extends Filter {
+    key_hash: string;
 }
 export interface ZarrArrayMetadata {
     /**
@@ -62,7 +65,7 @@ export interface ZarrArrayMetadata {
     /**
      * A list of JSON objects providing codec configurations, or `null` if no filters are to be applied. Each codec configuration object MUST contain a `"id"` key identifying the codec to be used.
      */
-    filters: null | Filter[];
+    filters: null | Filter[] | FilterDclimateEtl[];
     /**
      * Separator placed between the dimensions of a chunk.
      */
